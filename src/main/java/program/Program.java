@@ -74,19 +74,19 @@ public class Program {
                             System.out.print("Digite o nome do diretor do Filme: ");
                             String diretor = input.nextLine();
 
-                            system.cadastraWatchable(new Filme(tipo, nome, duracao, date, sinopse, diretor));
+                            system.cadastraWatchable(nome, new Filme(tipo, nome, duracao, date, sinopse, diretor));
                             break;
                         }
                             System.out.print("Quantidade de Episódios da Série: ");
                             int episodios = input.nextInt();
                             input.nextLine();
 
-                            system.cadastraWatchable(new Serie(tipo, nome, duracao, date, sinopse, episodios));
+                            system.cadastraWatchable(nome, new Serie(tipo, nome, duracao, date, sinopse, episodios));
                         break;
 
                     case (2):
 
-                        List<Watchable> watchs = system.listaWatchables();
+                        Collection<Watchable> watchs = system.listaWatchables();
                         if (watchs.isEmpty()) break;
                         watchs.stream().sorted(Comparator.comparing(Watchable::getDataDeLancamento)).forEach(System.out::println);
 
@@ -126,11 +126,11 @@ public class Program {
                         break;
                 }
 
-        } catch (RuntimeException e){
+            } catch (WatchableException e){
+                System.err.println(e.getMessage());
+            } catch (RuntimeException e){
                 System.err.println("Digitou o dado errado, digite novamente!");
-                input.nextLine();
-            }
-            catch (InterruptedException e) {
+            } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
         }
