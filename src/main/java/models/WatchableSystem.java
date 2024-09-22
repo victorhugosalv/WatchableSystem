@@ -15,13 +15,20 @@ public class WatchableSystem implements WatchableSystemOptions{
     }
 
     @Override
-    public void cadastraWatchable(String nomeDoFilme,Watchable watch) {
-        watchables.put(nomeDoFilme,watch);
+    public boolean cadastraWatchable(String nomeDoFilme,Watchable watch) {
+        if (watchables.containsKey(nomeDoFilme))
+            return false;
+        watchables.put(nomeDoFilme, watch);
+        return true ;
     }
 
     @Override
-    public void removeWatchablePorNome(String nome) {
+    public boolean removeWatchablePorNome(String nome) {
+        if (watchables.containsKey(nome)){
             watchables.remove(nome);
+            return true;
+        }
+        return false;
     }
 
     @Override
@@ -36,8 +43,7 @@ public class WatchableSystem implements WatchableSystemOptions{
 
     @Override
     public Watchable pesquisaWatchablePeloNome(String nome){
-        Collection<Watchable> ws = watchables.values();
-        Watchable watch = ws.stream().filter(wa -> wa.getNomeDoConteudo().equalsIgnoreCase(nome)).findFirst().orElse(null);
+        Watchable watch = watchables.get(nome);
         if (watch == null)
             throw new WatchableException("Não encontramos esse Assístivel!");
         return watch;

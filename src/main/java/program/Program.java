@@ -27,7 +27,7 @@ public class Program {
                 Thread.sleep(1000);
                 System.out.println("---------------------------------------------------------------------------------------------------------------");
 
-                System.out.println("""
+                System.out.println(""" 
                         1) Adicionar um Assistível;\s
                         2) Remover um Assistível pelo Nome;\s
                         3) Listar Assistíveis;\s
